@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLE & STITCH – Shoes & Garments</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --cream: #f5f0e8;
+    --tan: #c9a87c;
+    --rust: #b84c2b;
+    --white: #ffffff;
+    --grey: #888;
+    --light: #f9f6f1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4vw;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rust); }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none; color: var(--black); font-size: 0.88rem;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--rust); }
+
+  .nav-actions { display: flex; gap: 1rem; align-items: center; }
+
+  .nav-btn {
+    background: var(--black); color: var(--white);
+    border: none; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+
+  .nav-btn:hover { background: var(--rust); }
+
+  .cart-icon {
+    cursor: pointer; font-size: 1.2rem; position: relative;
+  }
+
+  .cart-count {
+    position: absolute; top: -8px; right: -8px;
+    background: var(--rust); color: white;
+    border-radius: 50%; width: 18px; height: 18px;
+    font-size: 0.65rem; display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4vw 4rem 6vw;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--rust); font-weight: 500; margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.0;
+    font-weight: 900;
+    margin-bottom: 1.8rem;
+    letter-spacing: -1px;
+  }
+
+  .hero-title em {
+    font-style: italic; color: var(--rust);
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem; color: #555; line-height: 1.7;
+    max-width: 420px; margin-bottom: 2.5rem;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--black); color: var(--white);
+    border: 2px solid var(--black); padding: 0.9rem 2.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--rust); border-color: var(--rust); }
+
+  .btn-outline {
+    background: transparent; color: var(--black);
+    border: 2px solid var(--black); padding: 0.9rem 2.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { border-color: var(--rust); color: var(--rust); }
+
+  .hero-visual {
+    background: var(--black);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hero-visual-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1208 0%, #2d1f0a 50%, #0a0a0a 100%);
+  }
+
+  .hero-shoe-display {
+    position: relative; z-index: 2;
+    text-align: center; padding: 3rem;
+  }
+
+  .shoe-emoji-big {
+    font-size: 9rem; display: block;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-20px) rotate(-8deg); }
+  }
+
+  .hero-badge {
+    position: absolute; bottom: 3rem; right: 3rem;
+    background: var(--tan); color: var(--black);
+    padding: 1.2rem; text-align: center;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .hero-badge-num { font-size: 2rem; font-weight: 900; display: block; }
+  .hero-badge-txt { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--rust); color: var(--white);
+    padding: 0.75rem 0; overflow: hidden;
+    font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .ticker-inner {
+    display: flex; gap: 4rem; white-space: nowrap;
+    animation: ticker 20s linear infinite;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* CATEGORIES */
+  .section { padding: 6rem 6vw; }
+  .section-light { background: var(--light); }
+
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--rust); }
+
+  .see-all {
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--black); text-decoration: none; font-weight: 500;
+    border-bottom: 2px solid var(--black); padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s; cursor: pointer;
+  }
+
+  .see-all:hover { color: var(--rust); border-color: var(--rust); }
+
+  .categories-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+  }
+
+  .cat-card {
+    background: var(--black); color: var(--white);
+    padding: 3rem 1.5rem 2rem;
+    text-align: center; cursor: pointer; position: relative; overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .cat-card:hover { transform: translateY(-6px); }
+  .cat-card:nth-child(2) { background: var(--tan); color: var(--black); }
+  .cat-card:nth-child(3) { background: #2d2d2d; }
+  .cat-card:nth-child(4) { background: var(--rust); }
+
+  .cat-emoji { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
+
+  .cat-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+  }
+
+  .cat-count { font-size: 0.8rem; opacity: 0.7; margin-top: 0.3rem; letter-spacing: 0.05em; }
+
+  /* PRODUCTS */
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+
+  .product-card {
+    background: var(--white); cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  }
+
+  .product-img {
+    height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    position: relative; overflow: hidden;
+  }
+
+  .product-img-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.4s;
+  }
+
+  .product-card:hover .product-img-bg { transform: scale(1.05); }
+
+  .product-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--rust); color: var(--white);
+    padding: 0.25rem 0.7rem; font-size: 0.7rem;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  }
+
+  .product-wishlist {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 36px; height: 36px; background: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; cursor: pointer; border: none;
+    transition: background 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .product-wishlist:hover { background: #ffe0e0; }
+  .product-wishlist.active { background: #ffe0e0; }
+
+  .product-info { padding: 1.5rem; }
+
+  .product-category {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 0.4rem;
+  }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem;
+  }
+
+  .product-desc { font-size: 0.85rem; color: #777; line-height: 1.5; margin-bottom: 1rem; }
+
+  .product-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700;
+  }
+
+  .product-price .old {
+    font-size: 0.85rem; color: var(--grey);
+    text-decoration: line-through; font-family: 'DM Sans', sans-serif;
+    font-weight: 300; margin-right: 0.5rem;
+  }
+
+  .add-to-cart {
+    background: var(--black); color: var(--white);
+    border: none; padding: 0.6rem 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s; font-weight: 500;
+  }
+
+  .add-to-cart:hover { background: var(--rust); }
+
+  /* BANNER */
+  .promo-banner {
+    background: var(--black); color: var(--white);
+    padding: 6rem 6vw;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+
+  .promo-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--tan); font-weight: 500; margin-bottom: 1.2rem;
+  }
+
+  .promo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem); line-height: 1.05;
+    font-weight: 900; margin-bottom: 1.5rem;
+  }
+
+  .promo-title em { font-style: italic; color: var(--tan); }
+
+  .promo-text { color: #aaa; font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+
+  .promo-visual {
+    background: #1a1208;
+    height: 350px; display: flex; align-items: center; justify-content: center;
+    font-size: 8rem; position: relative;
+    border: 1px solid #2a2a2a;
+  }
+
+  .promo-visual::after {
+    content: 'UP TO 40% OFF';
+    position: absolute; bottom: -1px; left: 0; right: 0;
+    background: var(--rust); color: white;
+    text-align: center; padding: 0.8rem;
+    font-size: 0.8rem; letter-spacing: 0.2em; font-weight: 500;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    margin-top: 0;
+  }
+
+  .testimonial {
+    background: var(--white); padding: 2.5rem;
+    border-left: 4px solid var(--tan);
+  }
+
+  .stars { font-size: 1rem; margin-bottom: 1rem; }
+
+  .testimonial-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .testimonial-author { font-size: 0.82rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+  .testimonial-role { font-size: 0.78rem; color: var(--grey); }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--tan); padding: 5rem 6vw;
+    text-align: center;
+  }
+
+  .newsletter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 900;
+    margin-bottom: 0.8rem;
+  }
+
+  .newsletter-sub { font-size: 1rem; color: rgba(0,0,0,0.6); margin-bottom: 2.5rem; }
+
+  .newsletter-form {
+    display: flex; max-width: 480px; margin: 0 auto; gap: 0;
+  }
+
+  .newsletter-input {
+    flex: 1; padding: 1rem 1.5rem; border: 2px solid var(--black);
+    background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    outline: none;
+  }
+
+  .newsletter-submit {
+    background: var(--black); color: var(--white); border: 2px solid var(--black);
+    padding: 1rem 1.8rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+    font-weight: 500; transition: background 0.2s; white-space: nowrap;
+  }
+
+  .newsletter-submit:hover { background: var(--rust); border-color: var(--rust); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black); color: var(--white);
+    padding: 4rem 6vw 2rem;
+  }
+
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; margin-bottom: 1rem;
+  }
+
+  .footer-logo span { color: var(--rust); }
+
+  .footer-desc { color: #777; font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+
+  .social-links { display: flex; gap: 0.8rem; }
+
+  .social-link {
+    width: 38px; height: 38px; background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; cursor: pointer; transition: background 0.2s;
+    text-decoration: none;
+  }
+
+  .social-link:hover { background: var(--rust); }
+
+  .footer-heading {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 1.5rem; color: #aaa;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .footer-links a {
+    color: #777; text-decoration: none; font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--tan); }
+
+  .footer-bottom {
+    border-top: 1px solid #1a1a1a; padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-copy { font-size: 0.82rem; color: #555; }
+
+  .footer-pay { display: flex; gap: 0.5rem; font-size: 1.4rem; }
+
+  /* CART SIDEBAR */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-sidebar {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 95vw;
+    background: var(--white); z-index: 201;
+    transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+  }
+
+  .cart-overlay.open .cart-sidebar { transform: translateX(0); }
+
+  .cart-header {
+    padding: 1.5rem; border-bottom: 1px solid #eee;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .cart-title {
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+  }
+
+  .cart-close {
+    background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #555;
+  }
+
+  .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; }
+
+  .cart-item {
+    display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+  }
+
+  .cart-item-img {
+    width: 72px; height: 72px; background: var(--light);
+    display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.25rem; }
+  .cart-item-price { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; }
+
+  .cart-item-qty {
+    display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem;
+  }
+
+  .qty-btn {
+    width: 26px; height: 26px; background: var(--light); border: none;
+    cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; transition: background 0.2s;
+  }
+
+  .qty-btn:hover { background: var(--tan); }
+
+  .cart-item-remove {
+    background: none; border: none; cursor: pointer; color: #bbb; font-size: 1rem;
+    transition: color 0.2s;
+  }
+
+  .cart-item-remove:hover { color: var(--rust); }
+
+  .cart-footer {
+    padding: 1.5rem; border-top: 1px solid #eee;
+  }
+
+  .cart-total {
+    display: flex; justify-content: space-between;
+    font-size: 1.1rem; font-weight: 500; margin-bottom: 1.5rem;
+  }
+
+  .cart-total-price {
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem;
+  }
+
+  .checkout-btn {
+    width: 100%; background: var(--black); color: var(--white);
+    border: none; padding: 1.1rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; font-weight: 500; transition: background 0.2s;
+  }
+
+  .checkout-btn:hover { background: var(--rust); }
+
+  .empty-cart {
+    text-align: center; padding: 4rem 1rem; color: var(--grey);
+  }
+
+  .empty-cart-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--black); color: white; padding: 1rem 2rem;
+    font-size: 0.88rem; letter-spacing: 0.05em; z-index: 300;
+    transition: transform 0.3s; white-space: nowrap;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* MOBILE */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--black); display: block; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { height: 40vh; }
+    .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .promo-banner { grid-template-columns: 1fr; }
+    .testimonials { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 580px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .categories-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 1rem 4vw; }
+    .section { padding: 4rem 5vw; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">SOLE<span>&</span>STITCH</a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#sale">Sale</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 <span class="cart-count" id="cartCount">0</span>
+    </div>
+    <button class="nav-btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+    <button class="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">✦ New Collection 2026</p>
+    <h1 class="hero-title">Walk in<br><em>Style.</em><br>Dress to<br>Impress.</h1>
+    <p class="hero-subtitle">Premium shoes, apparel, and accessories — curated for Nairobi's fashion-forward. Free delivery within Westlands.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#shop">Browse Collection</a>
+      <a class="btn-outline" href="#sale">View Sale</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-bg"></div>
+    <div class="hero-shoe-display">
+      <span class="shoe-emoji-big">👟</span>
+    </div>
+    <div class="hero-badge">
+      <span class="hero-badge-num">200+</span>
+      <span class="hero-badge-txt">Styles In Stock</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>✦ Free Delivery in Westlands</span>
+    <span>✦ New Arrivals Every Week</span>
+    <span>✦ Authentic Brands Only</span>
+    <span>✦ Pay on Delivery Available</span>
+    <span>✦ M-Pesa Accepted</span>
+    <span>✦ Free Delivery in Westlands</span>
+    <span>✦ New Arrivals Every Week</span>
+    <span>✦ Authentic Brands Only</span>
+    <span>✦ Pay on Delivery Available</span>
+    <span>✦ M-Pesa Accepted</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-header">
+    <h2 class="section-title">Shop by<br><em>Category</em></h2>
+    <span class="see-all" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">View All →</span>
+  </div>
+  <div class="categories-grid">
+    <div class="cat-card" onclick="filterProducts('sneakers')">
+      <span class="cat-emoji">👟</span>
+      <div class="cat-name">Sneakers</div>
+      <div class="cat-count">48 items</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('formal')">
+      <span class="cat-emoji">👞</span>
+      <div class="cat-name">Formal Shoes</div>
+      <div class="cat-count">32 items</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('clothing')">
+      <span class="cat-emoji">👕</span>
+      <div class="cat-name">Clothing</div>
+      <div class="cat-count">75 items</div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('accessories')">
+      <span class="cat-emoji">👜</span>
+      <div class="cat-name">Accessories</div>
+      <div class="cat-count">29 items</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section section-light" id="shop">
+  <div class="section-header">
+    <h2 class="section-title">Featured<br><em>Products</em></h2>
+    <span class="see-all">Filter: <span id="activeFilter">All</span></span>
+  </div>
+  <div class="products-grid" id="productsGrid">
+    <!-- Injected by JS -->
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<section class="promo-banner" id="sale">
+  <div>
+    <p class="promo-eyebrow">✦ Limited Time Offer</p>
+    <h2 class="promo-title">Season End<br><em>Sale</em> Is<br>Live Now.</h2>
+    <p class="promo-text">Clear out prices on last season's must-haves. Shoes, jackets, bags, and more — all at massive discounts. While stocks last.</p>
+    <a class="btn-primary" href="#shop" style="background:var(--tan); border-color:var(--tan); color:var(--black);" onclick="filterProducts('sale')">Shop Sale Items</a>
+  </div>
+  <div class="promo-visual">👡</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="about">
+  <div class="section-header">
+    <h2 class="section-title">What Customers<br><em>Say</em></h2>
+  </div>
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-text">"Amazing quality and the delivery to Westlands was super fast. My sneakers arrived within 2 hours. Will definitely order again!"</p>
+      <div class="testimonial-author">Amina K.</div>
+      <div class="testimonial-role">Westlands, Nairobi</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-text">"Best online shoe shop in Nairobi. The prices are fair and everything looks exactly like the photos. Paid via M-Pesa — seamless!"</p>
+      <div class="testimonial-author">Brian M.</div>
+      <div class="testimonial-role">Parklands, Nairobi</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="testimonial-text">"Ordered a whole outfit for a wedding — shoes, shirt, belt. Everything matched perfectly. Great customer service too."</p>
+      <div class="testimonial-author">Grace W.</div>
+      <div class="testimonial-role">Lavington, Nairobi</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2 class="newsletter-title">Get First Access to New Drops</h2>
+  <p class="newsletter-sub">Join 5,000+ shoppers and never miss a sale or new arrival.</p>
+  <div class="newsletter-form">
+    <input type="email" class="newsletter-input" placeholder="Your email address">
+    <button class="newsletter-submit" onclick="subscribeNewsletter()">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">SOLE<span>&</span>STITCH</div>
+      <p class="footer-desc">Premium footwear and garments for Nairobi's style-conscious. Located in Westlands with nationwide delivery.</p>
+      <div class="social-links">
+        <a class="social-link" href="#" title="Instagram">📸</a>
+        <a class="social-link" href="#" title="Facebook">📘</a>
+        <a class="social-link" href="#" title="WhatsApp">💬</a>
+        <a class="social-link" href="#" title="TikTok">🎵</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Sneakers</a></li>
+        <li><a href="#">Formal Shoes</a></li>
+        <li><a href="#">Clothing</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Info</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Delivery Info</a></li>
+        <li><a href="#">Returns Policy</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">📍 Westlands, Nairobi</a></li>
+        <li><a href="tel:+254700000000">📞 +254 700 000 000</a></li>
+        <li><a href="mailto:hello@solestitch.co.ke">✉️ hello@solestitch.co.ke</a></li>
+        <li><a href="#">⏰ Mon–Sat: 9AM–7PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Sole & Stitch. All rights reserved.</span>
+    <div class="footer-pay" title="Payment methods">💳 📱 💵</div>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="handleOverlayClick(event)">
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="cart-total-price" id="cartTotal">KSh 0</span>
+      </div>
+      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  { id:1, name:'Air Runner Pro', category:'sneakers', emoji:'👟', color:'#e8f0fe', price:5500, oldPrice:7200, badge:'New', desc:'Lightweight foam sole, breathable mesh upper.' },
+  { id:2, name:'Oxford Classic', category:'formal', emoji:'👞', color:'#f5e6d3', price:6800, oldPrice:null, badge:null, desc:'Hand-stitched leather upper, rubber sole.' },
+  { id:3, name:'Street Puff Jacket', category:'clothing', emoji:'🧥', color:'#e8f5e9', price:4200, oldPrice:5500, badge:'Sale', desc:'Windproof, lightweight puffer for Nairobi evenings.' },
+  { id:4, name:'Canvas Slip-On', category:'sneakers', emoji:'👟', color:'#fff3e0', price:2800, oldPrice:null, badge:null, desc:'Clean and casual, wears with everything.' },
+  { id:5, name:'Tote Shopper', category:'accessories', emoji:'👜', color:'#fce4ec', price:1900, oldPrice:2500, badge:'Sale', desc:'Durable canvas with zip interior pocket.' },
+  { id:6, name:'Linen Shirt', category:'clothing', emoji:'👔', color:'#e3f2fd', price:2200, oldPrice:null, badge:'New', desc:'Breathable linen, perfect for Nairobi heat.' },
+  { id:7, name:'Heeled Ankle Boot', category:'formal', emoji:'👡', color:'#f3e5f5', price:7500, oldPrice:9000, badge:'Sale', desc:'Block heel, zip back, suede finish.' },
+  { id:8, name:'Running Shorts', category:'clothing', emoji:'🩳', color:'#e0f7fa', price:1400, oldPrice:null, badge:null, desc:'Quick-dry fabric, side pockets, elastic waist.' },
+  { id:9, name:'Leather Belt', category:'accessories', emoji:'🪢', color:'#efebe9', price:1200, oldPrice:1600, badge:'Sale', desc:'Genuine leather, brass buckle, 3 sizes.' },
+];
+
+let cart = [];
+let currentFilter = 'all';
+
+function renderProducts(filter = 'all') {
+  const grid = document.getElementById('productsGrid');
+  document.getElementById('activeFilter').textContent = filter === 'all' ? 'All' : filter.charAt(0).toUpperCase() + filter.slice(1);
+  const filtered = filter === 'all' ? products : filter === 'sale'
+    ? products.filter(p => p.badge === 'Sale')
+    : products.filter(p => p.category === filter);
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-img" style="background:${p.color}">
+        <span style="font-size:5rem;position:relative;z-index:1">${p.emoji}</span>
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        <button class="product-wishlist" onclick="wishlist(${p.id},this)" title="Wishlist">♡</button>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${p.category}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="product-price">
+            ${p.oldPrice ? `<span class="old">KSh ${p.oldPrice.toLocaleString()}</span>` : ''}
+            KSh ${p.price.toLocaleString()}
+          </div>
+          <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(cat) {
+  currentFilter = cat;
+  renderProducts(cat);
+  document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(i => i.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+  updateCartUI();
+  showToast(`${product.emoji} ${product.name} added to cart!`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCartUI();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+
+  const itemsEl = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = `<div class="empty-cart"><span class="empty-cart-icon">🛒</span><p>Your cart is empty</p></div>`;
+    footerEl.style.display = 'none';
+  } else {
+    itemsEl.innerHTML = cart.map(i => `
+      <div class="cart-item">
+        <div class="cart-item-img">${i.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-price">KSh ${(i.price * i.qty).toLocaleString()}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+            <span>${i.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${i.id})" title="Remove">✕</button>
+      </div>
+    `).join('');
+    document.getElementById('cartTotal').textContent = `KSh ${total.toLocaleString()}`;
+    footerEl.style.display = 'block';
+  }
+}
+
+function toggleCart() {
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('cartOverlay')) toggleCart();
+}
+
+function checkout() {
+  toggleCart();
+  showToast('🎉 Order placed! We will contact you via WhatsApp.');
+  cart = [];
+  updateCartUI();
+}
+
+function wishlist(id, btn) {
+  btn.classList.toggle('active');
+  btn.textContent = btn.classList.contains('active') ? '♥' : '♡';
+  const p = products.find(p => p.id === id);
+  showToast(btn.classList.contains('active') ? `${p.emoji} ${p.name} saved to wishlist!` : `Removed from wishlist`);
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function subscribeNewsletter() {
+  const input = document.querySelector('.newsletter-input');
+  if (input.value.includes('@')) {
+    showToast('🎉 Subscribed! Welcome to Sole & Stitch.');
+    input.value = '';
+  } else {
+    showToast('Please enter a valid email address.');
+  }
+}
+
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:var(--cream);padding:2rem;gap:1.5rem;z-index:99;border-bottom:1px solid #eee;';
+  }
+}
+
+// Init
+renderProducts();
+updateCartUI();
+</script>
+</body>
+</html>
